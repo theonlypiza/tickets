@@ -3,8 +3,7 @@
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
-import Events from "./components/events";
+import { useState } from "react";
 import EventsTab from "./components/eventsTab";
 
 interface TabPanelProps {

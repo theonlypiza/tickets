@@ -1,20 +1,9 @@
 "use client"; // Enables client-side fetching
 
-import { useEffect, useState } from "react";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Grid,
-  Container,
-  CircularProgress,
-  Box,
-  Breadcrumbs,
-} from "@mui/material";
+import { useState } from "react";
+import { Typography, Box, Breadcrumbs } from "@mui/material";
 import Events from "./events";
 import Orders from "./orders";
-import Link from "next/link";
 
 type Event = {
   id: string;

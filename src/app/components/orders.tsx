@@ -57,7 +57,7 @@ export default function Orders({ eventId }: OrdersProps) {
       }
     }
     fetchOrders();
-  }, []);
+  }, [eventId]);
 
   return (
     <Box sx={{ p: 3 }}>

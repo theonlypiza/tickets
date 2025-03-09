@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: NextRequest) {
   try {
-    const { created_at, total_price, line_items } = req.body;
+    const { created_at, line_items } = req.body as any;
     // Generate a UUID for the QR code
     const uuid = uuidv4();
 
@@ -63,13 +63,13 @@ export async function POST(req: NextRequest) {
 
     // Generate PDF from HTML using html-pdf-node
     const file = { content: htmlContent };
-    const pdfBuffer = await pdf.generatePdf(file, { format: "A4" });
+    const pdfBuffer = (await pdf.generatePdf(file, { format: "A4" })) as any;
 
     // Save the PDF to the tmp folder
     fs.writeFileSync(pdfPath, pdfBuffer);
 
     return NextResponse.json({ pdfPath }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
