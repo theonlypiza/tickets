@@ -11,10 +11,10 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.7",
     "@shopify/shopify-api": "^11.8.0",
     "@shopify/storefront-api-client": "^1.0.4",
-    "bootstrap": "^5.3.3",
     "emitter": "^0.0.5",
     "html-pdf-node": "^1.0.8",
     "next": "15.1.6",

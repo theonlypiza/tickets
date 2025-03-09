@@ -85,6 +85,10 @@ query {
             node {
               title  # Product title
               quantity
+              variant{
+                title
+                price
+              }
             }
           }
         }
