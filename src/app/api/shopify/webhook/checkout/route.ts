@@ -21,9 +21,24 @@ export async function POST(req: Request) {
     const payload = JSON.parse(rawBody);
     console.log("Shopify Checkout Webhook Received:", payload);
 
+    fetch("/api/qr", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-shopify-hmac-sha256": hmac,
+      },
+      body: payload,
+    });
+    // .then((response) => response.json())
+    // .then((data) => console.log("Response:", data))
+    // .catch((error) => console.error("Error:", error));
+
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error("Webhook error:", error);
-    return NextResponse.json({ error: "Failed to process webhook" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to process webhook" },
+      { status: 500 }
+    );
   }
 }

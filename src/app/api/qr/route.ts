@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: NextRequest) {
   try {
+    const { created_at, total_price, line_items } = req.body;
     // Generate a UUID for the QR code
     const uuid = uuidv4();
 
@@ -48,10 +49,10 @@ export async function POST(req: NextRequest) {
             <p><strong>HORA DE INICIO:</strong> 2025-02-15 21:00</p>
             <p><strong>HORA DE FINALIZACIÓN:</strong> 2025-02-16 06:00</p>
             <p><strong>NOMBRE:</strong> Luis Diego Pizarro Moreno</p>
-            <p><strong>TIPO DE ENTRADA:</strong> FRONT STAGE (2 entradas)</p>
+            <p><strong>TIPO DE ENTRADA:</strong>${line_items[0].variant_title}</p>
             <p><strong>REF. PEDIDO:</strong> 12aah2h71v-1</p>
-            <p><strong>FECHA DE COMPRA:</strong> 2024-12-10 00:05</p>
-            <p><strong>PRECIO:</strong> $55.50 (inc. $5.50)</p>
+            <p><strong>FECHA DE COMPRA:</strong>${created_at}</p>
+            <p><strong>PRECIO:</strong> ${line_items[0].price}</p>
           </div>
           <div class="qr">
             <img src="${qrBase64}" width="400" height="400" alt="QR Code" />
