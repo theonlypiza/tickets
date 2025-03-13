@@ -1,7 +1,7 @@
 "use client"; // Enables client-side fetching
 
 import Box from "@mui/material/Box";
-import Orders from "../components/orders";
+import Orders from "../../components/orders";
 import { useEffect, useState } from "react";
 import {
   CircularProgress,

@@ -1,7 +1,7 @@
 "use client"; // Enables client-side fetching
 
 import Box from "@mui/material/Box";
-import EventsTab from "../components/eventsTab";
+import EventsTab from "../../components/eventsTab";
 
 export default function BasicTabs() {
   return (
