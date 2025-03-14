@@ -1,0 +1,64 @@
+{
+  "synchronous": true,
+  "productSet": {
+    "title": "My Cool Product",
+    "productOptions": [
+      {
+        "name": "Color",
+        "values": [
+          {
+            "name": "Red"
+          },
+          {
+            "name": "Green"
+          },
+          {
+            "name": "Blue"
+          }
+        ]
+      },
+      {
+        "name": "Size",
+        "values": [
+          {
+            "name": "Small"
+          },
+          {
+            "name": "Medium"
+          },
+          {
+            "name": "Large"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "optionValues": [
+          {
+            "optionName": "Color",
+            "name": "Red"
+          },
+          {
+            "optionName": "Size",
+            "name": "Small"
+          }
+        ],
+        "price": 19.99
+      },
+      {
+        "optionValues": [
+          {
+            "optionName": "Color",
+            "name": "Green"
+          },
+          {
+            "optionName": "Size",
+            "name": "Medium"
+          }
+        ],
+        "price": 19.99
+      }
+    ]
+  }
+}

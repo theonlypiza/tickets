@@ -1,5 +1,3 @@
-"use client"; // Enables client-side fetching
-
 import Box from "@mui/material/Box";
 import Orders from "../../components/orders";
 import { useEffect, useState } from "react";
@@ -21,7 +19,6 @@ export default function BasicTabs() {
       try {
         const response = await fetch("/api/shopify/products");
         const data = await response.json();
-        console.log(data);
         setEvents(data.products.edges.map((edge: any) => edge.node)); // Extract event data
       } catch (error) {
         console.error("Failed to fetch events", error);

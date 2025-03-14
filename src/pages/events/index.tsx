@@ -1,5 +1,3 @@
-"use client"; // Enables client-side fetching
-
 import Box from "@mui/material/Box";
 import EventsTab from "../../components/eventsTab";
 

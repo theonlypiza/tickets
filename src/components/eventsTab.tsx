@@ -5,6 +5,7 @@ import { Typography, Box, Breadcrumbs, Button } from "@mui/material";
 import Events from "./events";
 import Orders from "./orders";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useRouter } from "next/router";
 
 type Event = {
   id: string;
@@ -22,6 +23,7 @@ type Event = {
 
 export default function EventsTab() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const router = useRouter(); // Hook para navegar
 
   return (
     <Box sx={{ width: "100%", p: 3 }}>
@@ -36,6 +38,7 @@ export default function EventsTab() {
           zIndex: 1,
         }}
         startIcon={<AddCircleIcon />}
+        onClick={() => router.push("/events/create")}
       >
         Crear Evento
       </Button>
