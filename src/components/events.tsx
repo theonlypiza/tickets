@@ -33,7 +33,9 @@ export default function Events({ onSelectEvent }: EventsProps) {
   const [loading, setLoading] = useState(true);
 
   const handleEventClick = (event: Event) => {
-    onSelectEvent(event);
+    // onSelectEvent(event);
+    const productUrl = `https://pizatickets.myshopify.com//products/${event.title}`;
+    window.open(productUrl, "_blank"); // Opens the product page in a new tab
   };
 
   useEffect(() => {
