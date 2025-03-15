@@ -184,17 +184,32 @@ export const createProductGraphQL = async (productData: any) => {
       }
   `;
 
+  const mutationPublish = `mutation productPublish($input: ProductPublishInput!) {
+    productPublish(input: $input) {
+      product {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }`;
+
   const locationid = "gid://shopify/Location/73867624536";
 
   const variablesProduct = {
     synchronous: true,
     productSet: {
       title: productData.title,
+      descriptionHtml: productData.body_html,
       vendor: productData.vendor,
       productOptions: [
         {
           name: "Ticket Type",
-          values: [{ name: "General" }, { name: "VIP" }, { name: "Backstage" }],
+          values: productData.variants?.map((variant: any) => ({
+            name: variant.title,
+          })),
         },
       ],
       variants: productData.variants?.map((variant: any) => ({
@@ -209,6 +224,7 @@ export const createProductGraphQL = async (productData: any) => {
           tracked: true, // Enable inventory tracking
         },
       })),
+      //status: "ARCHIVED",
     },
   };
 
@@ -222,8 +238,12 @@ export const createProductGraphQL = async (productData: any) => {
       },
     });
 
-    console.log(response.body.data.productSet);
-    console.log(response.body.data.productSet.product.variants.nodes);
+    console.log(response.body.data);
+
+    await uploadImageToShopify(
+      extractShopifyId(response.body.data.productSet.product.id),
+      productData.images[0]
+    );
 
     const variablesVariant = {
       input: {
@@ -247,6 +267,28 @@ export const createProductGraphQL = async (productData: any) => {
     });
 
     console.log(responseFinal);
+
+    const variablesPublish = {
+      input: {
+        id: response.body.data.productSet.product.id,
+        productPublications: [
+          {
+            publicationId: "gid://shopify/Publication/137153085528", // set in an env variable
+            //  publishDate: "2025-03-15T15:50:00Z",
+          },
+        ],
+      },
+    };
+    const responseFinalFinal = await shopifyClient.query({
+      data: {
+        query: mutationPublish,
+        variables: variablesPublish,
+      },
+    });
+
+    console.log(
+      responseFinalFinal.body.data.publishablePublishToCurrentChannel
+    );
 
     // if (responseData && responseData.data.productCreate.userErrors.length) {
     //   console.error("Shopify Product Creation Errors:", response);
@@ -281,4 +323,39 @@ export const postProduct = async (productData: any) => {
         error.response?.data || error.message
       );
     });
+};
+
+export const uploadImageToShopify = async (
+  productid,
+  { base64Image, fileName }
+) => {
+  try {
+    const response = await axios.post(
+      `https://${process.env.SHOPIFY_HOSTNAME}/admin/api/2025-01/products/${productid}/images.json`,
+      {
+        image: {
+          attachment: base64Image,
+          filename: fileName,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json", // This tells the server to expect multipart form data
+          "X-Shopify-Access-Token": process.env.SHOPIFY_ACCESS_TOKEN!,
+        },
+      }
+    );
+
+    console.log("Image uploaded successfully:", response.data);
+  } catch (error) {
+    console.error("Error uploading image:", error);
+  }
+};
+
+export const extractShopifyId = (gid: string): number | null => {
+  const match = gid.match(/gid:\/\/shopify\/([a-zA-Z]+)\/(\d+)/);
+  if (match && match[2]) {
+    return parseInt(match[2], 10); // Return the numeric ID
+  }
+  return null; // Return null if no match is found
 };
