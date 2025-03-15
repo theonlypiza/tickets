@@ -1,5 +1,4 @@
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import {
   Box,
@@ -9,9 +8,7 @@ import {
   IconButton,
   CircularProgress,
   Input,
-  InputAdornment,
   FormControl,
-  Grid,
   Paper,
 } from "@mui/material";
 import { Add, Delete, PhotoCamera } from "@mui/icons-material";
@@ -85,7 +82,7 @@ export default function CreateEventPage() {
     }
   };
 
-  const handleVariantChange = (index: number, field: string, value: string) => {
+  const handleVariantChange = (index: number, field: string, value: any) => {
     const updatedVariants = [...variants];
 
     if (field === "price" || field === "quantity") {
@@ -209,7 +206,6 @@ export default function CreateEventPage() {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Input
               type="file"
-              accept="image/*"
               onChange={handleImageChange}
               sx={{ display: "none" }}
               id="image-upload"

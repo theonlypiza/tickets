@@ -1,7 +1,7 @@
 import { shopifyApi, ApiVersion, Session } from "@shopify/shopify-api";
 import { v4 as uuidv4 } from "uuid";
 import "@shopify/shopify-api/adapters/node";
-const axios = require("axios");
+import axios from "axios";
 
 // Initialize Shopify API client
 export const shopify = shopifyApi({
@@ -35,6 +35,7 @@ query {
         id
         title
         descriptionHtml
+        onlineStoreUrl
         images(first: 1) {
           edges {
             node {
@@ -231,14 +232,12 @@ export const createProductGraphQL = async (productData: any) => {
   console.log("variables", variablesProduct);
 
   try {
-    const response = await shopifyClient.query({
+    const response = (await shopifyClient.query({
       data: {
         query: mutationProduct,
         variables: variablesProduct,
       },
-    });
-
-    console.log(response.body.data);
+    })) as any;
 
     await uploadImageToShopify(
       extractShopifyId(response.body.data.productSet.product.id),
@@ -279,16 +278,12 @@ export const createProductGraphQL = async (productData: any) => {
         ],
       },
     };
-    const responseFinalFinal = await shopifyClient.query({
+    await shopifyClient.query({
       data: {
         query: mutationPublish,
         variables: variablesPublish,
       },
     });
-
-    console.log(
-      responseFinalFinal.body.data.publishablePublishToCurrentChannel
-    );
 
     // if (responseData && responseData.data.productCreate.userErrors.length) {
     //   console.error("Shopify Product Creation Errors:", response);

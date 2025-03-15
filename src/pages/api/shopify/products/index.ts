@@ -1,9 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  createProductGraphQL,
-  fetchProductsGraphQL,
-  postProduct,
-} from "@/lib/shopify";
+import { createProductGraphQL, fetchProductsGraphQL } from "@/lib/shopify";
 
 export default async function handler(
   req: NextApiRequest,

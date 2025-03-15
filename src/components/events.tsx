@@ -13,6 +13,7 @@ import {
 type Event = {
   id: string;
   title: string;
+  onlineStoreUrl: string;
   descriptionHtml: string;
   images: {
     edges: {
@@ -24,18 +25,13 @@ type Event = {
   };
 };
 
-type EventsProps = {
-  onSelectEvent: (event: Event) => void;
-};
-
-export default function Events({ onSelectEvent }: EventsProps) {
+export default function Events() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
   const handleEventClick = (event: Event) => {
     // onSelectEvent(event);
-    const productUrl = `https://pizatickets.myshopify.com//products/${event.title}`;
-    window.open(productUrl, "_blank"); // Opens the product page in a new tab
+    window.open(event.onlineStoreUrl, "_blank"); // Opens the product page in a new tab
   };
 
   useEffect(() => {

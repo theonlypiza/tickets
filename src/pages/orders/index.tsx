@@ -7,10 +7,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
 } from "@mui/material";
 
 export default function BasicTabs() {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
 
@@ -29,8 +30,8 @@ export default function BasicTabs() {
     fetchEvents();
   }, []);
 
-  const handleEventChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedEvent(event.target.value as string); // Set selected event when changed
+  const handleEventChange = (event: SelectChangeEvent<string>) => {
+    setSelectedEvent(event.target.value); // Set selected event when changed
   };
 
   return (

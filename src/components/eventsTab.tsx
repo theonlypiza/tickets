@@ -62,7 +62,7 @@ export default function EventsTab() {
       {selectedEvent ? (
         <Orders eventId={selectedEvent.id.split("/").pop() || ""} />
       ) : (
-        <Events onSelectEvent={setSelectedEvent} />
+        <Events />
       )}
     </Box>
   );
