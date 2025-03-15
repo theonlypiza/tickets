@@ -78,7 +78,7 @@ export default function CreateEventPage() {
       console.error("Error al crear el producto:", error);
     } finally {
       setLoading(false);
-      router.push("/eventos");
+      router.push("/events");
     }
   };
 
